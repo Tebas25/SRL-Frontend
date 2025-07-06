@@ -1,4 +1,3 @@
-// src/api/conductor.request.ts
 import axios from 'axios';
 import type { Conductor, ConductorUpdateDTO } from './conductor';
 
@@ -19,6 +18,8 @@ export const registrarNuevoConductor = async (data: {
   email: string;
   password: string;
   licencia: string;
+  provincia: string;
+  tipoContrato: string;
 }): Promise<Conductor> => {
   const res = await axios.post(`${API_URL}/registro`, data);
   return res.data;
@@ -29,4 +30,13 @@ export const actualizarConductor = async (id: number, data: ConductorUpdateDTO) 
   return response.data;
 };
 
+// 📊 Nuevos servicios para estadísticas
+export const obtenerEstadisticasPorProvincia = async (): Promise<{ provincia: string, total: number }[]> => {
+  const response = await axios.get(`${API_URL}/estadisticas/provincia`);
+  return response.data;
+};
 
+export const obtenerEstadisticasPorTipoContrato = async (): Promise<{ tipoContrato: string, total: number }[]> => {
+  const response = await axios.get(`${API_URL}/estadisticas/contrato`);
+  return response.data;
+};

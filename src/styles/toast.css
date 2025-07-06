@@ -1,0 +1,10 @@
+.toast-container {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.toast-body {
+  padding: 0 !important;
+  margin: 0 !important;
+}

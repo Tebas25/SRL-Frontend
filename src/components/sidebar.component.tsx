@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Home, User, Map } from 'lucide-react';
+import { Menu, Home, User, Users, Map } from 'lucide-react'; // <-- Agregado Users
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -31,7 +31,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* Crear Conductor */}
+          {/* Administrar Conductor */}
           <li>
             <Link
               to="/administrar-conductor"
@@ -39,6 +39,17 @@ const Sidebar = () => {
             >
               <User size={isOpen ? 24 : 36} className={isOpen ? '' : 'mx-auto'} />
               {isOpen && <span>Administrar Conductor</span>}
+            </Link>
+          </li>
+
+          {/* Administrar Usuario */}
+          <li>
+            <Link
+              to="/administrar-usuario"
+              className={`flex items-center ${isOpen ? 'p-3 space-x-3' : 'justify-center py-4'} hover:bg-white/10 transition-all`}
+            >
+              <Users size={isOpen ? 24 : 36} className={isOpen ? '' : 'mx-auto'} /> {/* Icono diferente */}
+              {isOpen && <span>Administrar Usuario</span>}
             </Link>
           </li>
 
@@ -52,7 +63,7 @@ const Sidebar = () => {
               {isOpen && <span>Administrar Rutas</span>}
             </Link>
           </li>
-          
+
         </ul>
       </nav>
     </div>

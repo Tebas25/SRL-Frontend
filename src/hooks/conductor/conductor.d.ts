@@ -4,6 +4,8 @@ export interface Conductor {
   id: number;
   usuario: Usuario;
   licencia: string;
+  provincia: string;
+  tipoContrato: string;
 }
 
 export interface Usuario {
@@ -19,6 +21,8 @@ export interface ConductorRegistroDTO {
   email: string;
   password: string;
   licencia: string;
+  provincia: string;
+  tipoContrato: string;
 }
 
 export interface ConductorCreateDTO {
@@ -31,4 +35,6 @@ export interface ConductorUpdateDTO {
   email?: string;
   password?: string;
   licencia?: string;
+  provincia?: string;
+  tipoContrato?: string;
 }

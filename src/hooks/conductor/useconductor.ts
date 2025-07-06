@@ -1,9 +1,12 @@
+// src/hooks/conductor/useconductor.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getConductores,
   crearConductor,
   registrarNuevoConductor,
-  actualizarConductor
+  actualizarConductor,
+  obtenerEstadisticasPorProvincia,
+  obtenerEstadisticasPorTipoContrato
 } from './conductor.request';
 
 import type {
@@ -19,7 +22,6 @@ export const useListarConductores = () => {
     queryFn: getConductores
   });
 };
-
 
 export const useCrearConductor = () => {
   const queryClient = useQueryClient();
@@ -55,3 +57,18 @@ export const useActualizarConductor = () => {
   });
 };
 
+// 📊 Hook para estadísticas por provincia
+export const useEstadisticasProvincia = () => {
+  return useQuery({
+    queryKey: ['estadisticas-provincia'],
+    queryFn: obtenerEstadisticasPorProvincia
+  });
+};
+
+// 📊 Hook para estadísticas por tipo de contrato
+export const useEstadisticasContrato = () => {
+  return useQuery({
+    queryKey: ['estadisticas-contrato'],
+    queryFn: obtenerEstadisticasPorTipoContrato
+  });
+};

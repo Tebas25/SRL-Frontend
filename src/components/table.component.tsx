@@ -36,10 +36,7 @@ const TableWrapper = <T extends object>({ data, columns, className = '' }: Table
                 return (
                   <td key={colIndex} className="px-4 py-3 align-middle h-[60px]">
                     {col.render
-                      ? (col.accessor === 'acciones'
-                          ? <div className="flex items-center justify-center gap-3 h-full">{col.render(value, row)}</div>
-                          : col.render(value, row)
-                        )
+                      ? col.render(value, row)
                       : String(value)
                     }
                   </td>
