@@ -6,15 +6,31 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
+  PointElement,
+  LineElement,
+  LineController,
 } from 'chart.js';
-import { Doughnut, Bar } from 'react-chartjs-2';
+import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import { useEstadisticasProvincia, useEstadisticasContrato } from '../../hooks/conductor/useconductor';
+import { useRutasPorConductor } from '../../hooks/rutas/useRutas'; 
 
-ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  LineController
+);
 
 const EstadisticasConductores = () => {
   const { data: provincias = [] } = useEstadisticasProvincia();
   const { data: contratos = [] } = useEstadisticasContrato();
+  const { data: rutasConductor = [] } = useRutasPorConductor();
 
   const donutDataProvincia = {
     labels: provincias.map((p) => p.provincia),
@@ -37,6 +53,20 @@ const EstadisticasConductores = () => {
         label: 'Conductores por tipo de contrato',
         data: contratos.map((c) => c.total),
         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
+
+  const lineDataRutas = {
+    labels: rutasConductor.map((item) => item.conductor),
+    datasets: [
+      {
+        label: 'Rutas asignadas por conductor',
+        data: rutasConductor.map((item) => item.totalRutas),
+        fill: false,
+        borderColor: '#36A2EB',
+        backgroundColor: '#36A2EB',
+        tension: 0.2,
       },
     ],
   };
@@ -65,11 +95,11 @@ const EstadisticasConductores = () => {
           <Bar data={barDataContrato} options={{ maintainAspectRatio: false }} height={250} />
         </div>
 
-        {/* Gráfico 3: Placeholder */}
-        <div className="w-full max-w-xs h-[320px] flex flex-col items-center justify-center border border-dashed border-gray-300 rounded">
-          <h2 className="text-lg font-semibold mb-2 text-center">Tercer gráfico</h2>
-          <p className="text-sm italic text-gray-400 text-center">Aquí irá tu tercer gráfico estadístico...</p>
-        </div>
+        {/* Gráfico 3: Polar Area por conductor */}
+          <div className="w-full max-w-xs h-[320px] flex flex-col items-center">
+            <h2 className="text-lg font-semibold mb-2 text-center">Rutas por Conductor</h2>
+            <Line data={lineDataRutas} options={{ maintainAspectRatio: false }} height={250} />
+          </div>
       </div>
     </div>
   );
